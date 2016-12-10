@@ -2,6 +2,7 @@ var fruitObj = function() {
     this.alive = [];
     this.x = [];
     this.y = [];
+    this.aneID = [];
     this.l = [];
     this.spd = [];
     this.fruitType = [];
@@ -16,6 +17,7 @@ fruitObj.prototype.init = function() {
         this.x[i] = 0;
         this.y[i] = 0;
         this.l[i] = 0;
+        this.aneID[i] = 0;
         this.spd[i] = Math.random() * 0.017 + 0.003; //[0.005, 0.015]
         this.fruitType[i] = "";
         //this.born(i);
@@ -30,6 +32,7 @@ fruitObj.prototype.draw = function() {
         if (this.alive[i]) {
             var pic = this.fruitType[i] === 'blue' ? this.blue : this.orange;
             if (this.l[i] <= 14) {
+                this.x[i] = ane.headx[this.aneID[i]];
                 this.l[i] += this.spd[i] * deltaTime;
             } else {
                 this.y[i] -= this.spd[i] * 7 * deltaTime;
@@ -44,16 +47,17 @@ fruitObj.prototype.draw = function() {
 }
 
 fruitObj.prototype.dead = function(i) {
-    
+
     this.alive[i] = false;
-    
+
 
 }
 
 fruitObj.prototype.born = function(i) {
     var aneID = Math.floor(Math.random() * ane.num);
-    this.x[i] = ane.x[aneID];
-    this.y[i] = canHeight - ane.len[aneID];
+    this.aneID[i] = aneID;
+    this.x[i] = ane.headx[aneID];
+    this.y[i] = ane.heady[aneID];
     this.l[i] = 0;
     this.alive[i] = true;
     if (Math.random() < 0.3) {
@@ -70,7 +74,7 @@ function fruitMonitor() {
     for (var i = 0; i < fruit.num; i++) {
         if (fruit.alive[i]) num++;
     }
-    if (num < 15) {
+    if (num < 29) {
         sendFruit();
     }
 }

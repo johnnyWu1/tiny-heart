@@ -42,8 +42,8 @@ babyObj.prototype.init = function() {
 
 babyObj.prototype.draw = function() {
 
-    this.x = lerpDistance(mom.x, this.x, 0.99);
-    this.y = lerpDistance(mom.y, this.y, 0.99);
+    this.x = lerpDistance(mom.x, this.x, 0.995);
+    this.y = lerpDistance(mom.y, this.y, 0.995);
 
 
 
@@ -82,6 +82,7 @@ babyObj.prototype.draw = function() {
     	if(this.babyBodyCount > 19){
     		this.babyBodyCount = 19;
     		// game over
+            data.gameOver = true;
     	}
     }
 

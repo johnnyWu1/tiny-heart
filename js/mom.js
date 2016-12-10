@@ -13,6 +13,9 @@ var momObj = function() {
     this.momEyeTimer = 0;
     this.momEyeInterval = 2000;
     this.momEyeCount = 0;
+
+    this.momBodyTimer = 0;
+    this.momBodyCount = 0;
 }
 
 momObj.prototype.init = function() {
@@ -79,14 +82,20 @@ momObj.prototype.draw = function() {
     ctx1.translate(this.x, this.y);
     ctx1.rotate(this.angle);
 
-    var momEye = this.bigEye[this.momEyeCount];
-    ctx1.drawImage(momEye, -momEye.width * 0.5, -momEye.height * 0.5);
 
-    var momBody = this.momBodyOrange[0];
+    if(data.double==1){
+    	var momBody = this.momBodyOrange[this.momBodyCount];
+    }else{
+    	var momBody = this.momBodyBlue[this.momBodyCount];
+    }
+    
     ctx1.drawImage(momBody, -momBody.width * 0.5, -momBody.height * 0.5);
 
     var bigTail = this.bigTail[this.momTailCount];
     ctx1.drawImage(bigTail, -bigTail.width * 0.5+ 30, -bigTail.height * 0.5);
+
+    var momEye = this.bigEye[this.momEyeCount];
+    ctx1.drawImage(momEye, -momEye.width * 0.5, -momEye.height * 0.5);
 
     ctx1.restore();
 }

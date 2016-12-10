@@ -23,6 +23,9 @@ var mx;
 var my;
 
 var data;
+var wave;
+
+var dust;
 
 function game() {
     init();
@@ -60,6 +63,15 @@ function init() {
     my = canHeight * 0.5;
 
     data = new dataObj();
+    wave = new waveObj();
+    wave.init();
+
+    dust = new dustObj();
+    dust.init();
+
+    
+    ctx1.font = '20px Verdana';
+    ctx1.textAlign = 'center';
 }
 
 function gameloop() {
@@ -70,6 +82,7 @@ function gameloop() {
     lastTime = now;
     if (deltaTime > 40) deltaTime = 40;
     drawBackground();
+    dust.draw();
     ane.draw();
     fruitMonitor();
     fruit.draw();
@@ -79,10 +92,14 @@ function gameloop() {
     momFruitsCollision();
     momBabyCollision();
     data.draw();
+    wave.draw();
 
 }
 
 function onMouseMove(e) {
+	if(data.gameOver){
+		return;
+	}
     if (e.offSetX || e.layerX) {
         mx = e.offSetX == undefined ? e.layerX : e.offSetX;
         my = e.offSetY == undefined ? e.layerY : e.offSetY;
